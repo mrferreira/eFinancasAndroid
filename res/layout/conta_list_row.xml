@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+    <!--  ListRow Left sied Thumbnail image -->
+    <LinearLayout android:id="@+id/thumbnailConta"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:padding="3dip"
+                  android:layout_alignParentLeft="true"
+                  android:background="@android:color/transparent"
+                  android:layout_marginRight="5dip">
+
+        <ImageView
+                android:id="@+id/list_image_clr"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:src="@drawable/ic_transacao"
+                />
+
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/nome_clr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transacao 00001"
+            android:textColor="#040404"
+            android:typeface="sans"
+            android:textSize="15dip"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_below="@+id/data_clr"
+            android:layout_toLeftOf="@+id/data_clr"/>
+
+    <TextView
+            android:id="@+id/descricao_clr"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#343434"
+            android:textSize="10dip"
+            android:text="compras tal e tal"
+            android:layout_alignLeft="@+id/nome_clr"
+            android:layout_below="@+id/nome_clr"
+            android:layout_alignRight="@+id/nome_clr"/>
+
+    <TextView
+            android:id="@+id/data_clr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="27/12/2013"
+            android:textSize="13dip"
+            android:textColor="#c9101e"
+            android:textStyle="bold"
+            android:layout_toLeftOf="@+id/imageView"
+            android:layout_alignTop="@+id/thumbnail"
+            android:paddingEnd="4dp"/>
+
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/arrow"
+               android:layout_alignParentRight="true"
+               android:layout_centerVertical="true"
+               android:id="@+id/imageView"/>
+
+    <TextView
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:text="999,99"
+            android:id="@+id/valor_clr"
+            android:layout_alignRight="@+id/data_clr"
+            android:layout_below="@+id/data_clr"
+            android:layout_alignBottom="@+id/thumbnail"
+            android:layout_toRightOf="@+id/nome_clr"
+            android:typeface="sans"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical|right"
+            android:layout_alignLeft="@+id/data_clr"
+            android:paddingEnd="4dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="contextMenu">
+        <item>Editar</item>
+        <item>Excluir</item>
+    </array>
+    <array name="tipoTransacao">
+        <item>Entrada</item>
+        <item>Saída</item>
+    </array>
+</resources>

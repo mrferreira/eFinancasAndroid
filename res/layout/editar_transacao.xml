@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="editar transacao"
+            android:id="@+id/textView"/>
+
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtNomeTransacaoET"
+            android:layout_gravity="left|center_vertical"
+            android:hint="Nome..."
+            android:inputType="text|textCapCharacters"
+            android:editable="true"/>
+
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDataET"
+            android:inputType="date"
+            android:singleLine="false"
+            android:hint="data..."
+            android:editable="false"/>
+
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDescricaoET"
+            android:hint="descrição..."
+            android:editable="true"/>
+
+    <Spinner
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spTipoTransacaoET"
+            android:hint="Entrada"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            android:popupBackground="@drawable/gradient_bg"/>
+
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtValorET"
+            android:inputType="text|number"
+            android:hint="valor..."
+            android:editable="true"/>
+
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Salvar"
+            android:id="@+id/btnSalvarET"
+            />
+
+</LinearLayout>
