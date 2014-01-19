@@ -1,5 +1,10 @@
 package br.com.efinancas.android.dao;
 
+import br.com.efinancas.android.Constants;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author: Misael Ferreira
  * @since 14/12/13 17:41
@@ -11,6 +16,7 @@ public class Conta {
     private String descricao;
     private double valorInicial;
     private double total;
+    private List<Transacao> transacoes;
 
     public long getId() {
         return id;
@@ -45,6 +51,15 @@ public class Conta {
     }
 
     public double getTotal() {
+        total = 0.0;
+        List<Transacao> lt = getTransacoes();
+        for(Transacao t : lt){
+            if(t.getTipo() == Constants.SAIDA){
+                total -= t.getValor();
+            }else{
+                total += t.getValor();
+            }
+        }
         return total;
     }
 
@@ -55,5 +70,16 @@ public class Conta {
     @Override
     public String toString(){
         return nome;
+    }
+
+    public List<Transacao> getTransacoes(){
+        if(transacoes == null){
+            transacoes = new ArrayList<Transacao>();
+        }
+        return transacoes;
+    }
+
+    public void setTransacoes(List<Transacao> transacoes){
+        this.transacoes = transacoes;
     }
 }

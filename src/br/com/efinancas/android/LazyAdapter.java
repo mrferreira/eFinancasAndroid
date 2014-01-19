@@ -66,6 +66,11 @@ public class LazyAdapter extends BaseAdapter {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         data.setText(sdf.format(transacao.getData() ));
         valor.setText(String.valueOf(transacao.getValor()));
+        if(transacao.getTipo() == Constants.ENTRADA ){
+            valor.setTextColor(parent.getResources().getColor(R.color.income));
+        }else{
+            valor.setTextColor(parent.getResources().getColor(R.color.outcome));
+        }
 //        imageLoader.DisplayImage(song.get(LazyAdapter.KEY_THUMB_URL), thumb_image);
         return vi;
     }

@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,20 +13,26 @@ import android.view.View;
 import android.widget.*;
 import br.com.efinancas.android.dao.Conta;
 import br.com.efinancas.android.dao.ContaDataSource;
+import br.com.efinancas.android.dao.TransacaoDataSource;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MyActivity extends ListActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
 
     private ContaDataSource contaDataSource;
+    private TransacaoDataSource transacaoDataSource;
 
     List<Conta> contas;
     Conta contaSelecionada;
     Button btnNovaConta;
     TextView lblValorTotal;
-
+    TextView lblData;
 
     /**
      * Called when the activity is first created.
@@ -35,17 +42,24 @@ public class MyActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        inicializarTudo();
 
-        contaDataSource = new ContaDataSource(this);
-        contaDataSource.open();
+        registerForContextMenu(getListView());
+    }
 
-        contas = contaDataSource.listarTudo();
+    private void inicializarTudo() {
+        inicializarDataSource();
 
-        ArrayAdapter<Conta> contaArrayAdapter = new ArrayAdapter<Conta>(this,
-                android.R.layout.simple_list_item_1, contas);
+        inicializarContas();
 
-        setListAdapter(contaArrayAdapter);
+        inicializarCabecalho();
 
+        inicializarLista();
+
+        inicializarBotoes();
+    }
+
+    private void inicializarBotoes() {
         btnNovaConta = (Button)findViewById(R.id.btnNovaConta);
         btnNovaConta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +68,20 @@ public class MyActivity extends ListActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if(hasFocus){
+            inicializarCabecalho();
+        }
+    }
+
+    private void inicializarLista() {
+        ArrayAdapter<Conta> contaArrayAdapter = new ArrayAdapter<Conta>(this,
+                android.R.layout.simple_list_item_1, contas);
+
+        setListAdapter(contaArrayAdapter);
 
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,14 +92,36 @@ public class MyActivity extends ListActivity {
                 startActivity(intent);
             }
         });
+    }
 
-        registerForContextMenu(getListView());
+    private void inicializarCabecalho() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        String valorTotal = String.format("R$%10.2f",somarValorTotalContas(contas));
+        setValorTotalHeader(valorTotal);
+
+        setDataAtual();
+    }
+
+    private void inicializarContas() {
+        contas = contaDataSource.listarTudo();
+        for(Conta c : contas){
+            c.setTransacoes(transacaoDataSource.listTransacaoByIdConta(c.getId()));
+        }
+    }
+
+    private void inicializarDataSource() {
+        contaDataSource = new ContaDataSource(this);
+        contaDataSource.open();
+        transacaoDataSource = new TransacaoDataSource(this);
+        transacaoDataSource.open();
     }
 
     @Override
     protected void onResume() {
         contaDataSource.open();
         super.onResume();
+
+        inicializarCabecalho();
 
         this.doubleBackToExitPressedOnce = false;
     }
@@ -94,6 +144,29 @@ public class MyActivity extends ListActivity {
                 menu.add(Menu.NONE, i, i, menuItems[i]);
             }
         }
+    }
+
+    private double somarValorTotalContas(List<Conta> contas){
+        Log.i(Constants.LOG,"somarValorTotalContas begin");
+        double result = 0.0;
+        for(Conta c : contas){
+            result += c.getTotal();
+        }
+        Log.d(Constants.LOG,"valor total: " + result);
+        Log.i(Constants.LOG,"somarValorTotalContas end");
+        return result;
+    }
+
+    private void setValorTotalHeader(String valor){
+        Log.i(Constants.LOG,"Setando header valorTotal");
+        lblValorTotal = (TextView)findViewById(R.id.lblValorTotalHeader);
+        lblValorTotal.setText(valor);
+    }
+
+    private void setDataAtual(){
+        Log.i(Constants.LOG,"Setando data atual");
+        lblData = (TextView)findViewById(R.id.lblData);
+        lblData.setText(new SimpleDateFormat("MM/yyyy").format(new Date()).toString());
     }
 
     @Override

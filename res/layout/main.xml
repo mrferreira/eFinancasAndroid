@@ -7,7 +7,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/MainHeader"
+            android:text="Contas"
             android:id="@+id/lblGastosHeader"
             android:textColor="@android:color/background_light"
             android:textColorHighlight="@android:color/holo_orange_light"

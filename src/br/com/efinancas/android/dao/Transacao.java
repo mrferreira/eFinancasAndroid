@@ -1,5 +1,7 @@
 package br.com.efinancas.android.dao;
 
+import br.com.efinancas.android.Constants;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,7 +28,7 @@ public class Transacao {
         descricao = "";
         data = new Date();
         idConta = 0;
-        tipo = 1; //default saída
+        tipo = Constants.SAIDA; //default saída
         idCategoria = 0;
         idTag = 0;
         valor = 0.0f;
